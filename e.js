@@ -5,7 +5,12 @@ const port = 7070
 const {spawn} = require('child_process')
 let piip;
 
-function forward() {spawn('python', ['/home/pi/Desktop/bot-controller/assets/scripts/forward.py'])}
+function tempCheck() {spawn('python', ['/home/pi/Desktop/hot-box/python/ds18b20.py'])}
+function relayOn() {spawn('python', ['/home/pi/Desktop/hot-box/python/relayOn.py'])}
+function relayOff() {spawn('python', ['/home/pi/Desktop/hot-box/python/relayOff.py'])}
+
+tempCheck()
+relayOff()
 
 const wss = new ws.Server({noServer: true})
 
