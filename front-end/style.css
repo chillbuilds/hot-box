@@ -7,7 +7,7 @@ input {
     background: rgba(0, 0, 0, 0.2);
     border: none;
     font-size: 22px;
-    width: 50%;
+    width: 55%;
 }
 
 #cont {
@@ -22,6 +22,11 @@ input {
     bottom: 8px;
     margin: 6px;
     width: 30px;
+}
+
+#jobIcons {
+    position: relative;
+    bottom: 2px;
 }
 
 .status {
@@ -41,11 +46,32 @@ input {
 .prev {
     position: relative;
     float: left;
-    width: 26%;
+}
+
+#namePrev {
     margin-left: 4%;
+    width: 46%;
+}
+
+#tempPrev {
+    width: 20%;
+}
+
+#timePrev {
+    width: 15%;
 }
 
 .chunk {
     margin-bottom: 5%;
     font-size: 22px;
+}
+
+.jobChunk {
+    height: 50%;
+    width: 100%;
+    display: inline-block;
+    padding-top: 2%;
+    background: rgba(0, 0, 0, 0.2);
+    margin-bottom: .5%;
+    border-radius: 4px;
 }
