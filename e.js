@@ -29,13 +29,22 @@ function onConnect(ws) {
   ws.on('message', function (message) {
     ws.send(message)
     console.log(message)
+    switch(message) {
+      case 'Browser connection established':
+        console.log('shit werks')
+        break
+      
+      default:
+        console.log('weird shit in the switch statement')
+    }
   })
 }
 
 if (!module.parent) {
   http.createServer(accept).listen(port);
+  console.log(`\nWebSocket server running on port ${port}\n`)
   piip = ipCheck()
-  console.log(`\nWebsocket server running @ ${piip}:${port}\n`)
+  console.log(piip)
 } else {
   exports.accept = accept
   console.log('WebSocket server failed')
