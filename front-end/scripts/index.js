@@ -1,5 +1,6 @@
 let activeSocket = false
 var socket;
+var jobs = []
 
 function socketSetup() {
   if(activeSocket === false){
@@ -14,7 +15,14 @@ function socketSetup() {
     }
     
     socket.onmessage = function(event) {
-      console.log(`Data from server: ${event.data}`)
+      let data = JSON.parse(event.data)
+      if(data.request == 'update'){
+        jobs = []
+        for(var i = 0; i < data.jobs.length; i++){
+          jobs.push(data.jobs[i])
+        }
+        console.log(jobs)
+      }
     }
     
     socket.onclose = function(event) {
@@ -40,7 +48,12 @@ function socketSetup() {
   }
 }
 
+function interval() {
+  setInterval(function() {socket.send(JSON.stringify({request: 'refresh'}))}, 3000)
+}
+
 socketSetup()
+interval()
 
 $('#createJob').on('click', function() {
   var err = []
