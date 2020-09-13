@@ -3,6 +3,13 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+input {
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    font-size: 22px;
+    width: 50%;
+}
+
 #cont {
     margin: 6% 6%;
 }
@@ -10,22 +17,22 @@ body {
 .status {
     position: relative;
     float: left;
-    width: 24%;
-    margin-left: 6%;
+    width: 26%;
+    margin-left: 4%;
 }
 
 .new {
     position: relative;
     float: left;
-    width: 24%;
-    margin-left: 6%;
+    width: 26%;
+    margin-left: 4%;
 }
 
 .prev {
     position: relative;
     float: left;
-    width: 24%;
-    margin-left: 6%;
+    width: 26%;
+    margin-left: 4%;
 }
 
 .chunk {
