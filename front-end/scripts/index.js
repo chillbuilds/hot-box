@@ -9,7 +9,7 @@ function socketSetup() {
 
     socket.onopen = function(e) {
       console.log('Server connection established')
-      socket.send('Browser connection established')
+      socket.send(JSON.stringify({request: 'connection'}))
       $('#connectBtn').attr('style', 'background: rgba(0, 255, 0, 0.5);')
     }
     
@@ -63,7 +63,7 @@ $('#createJob').on('click', function() {
     for(var i = 0; i < err.length; i++){
       console.log(err[i])
     }
-  }else{socket.send(JSON.stringify({name: name, temp: temp, time: time}))}
+  }else{socket.send(JSON.stringify({request: 'create',name: name, temp: temp, time: time}))}
 })
 
 $('#erase').on('click', function() {
