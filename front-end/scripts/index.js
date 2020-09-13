@@ -4,7 +4,7 @@ var socket;
 function socketSetup() {
   if(activeSocket === false){
 
-    socket = new WebSocket('wss://192.168.1.16:7070')
+    socket = new WebSocket('ws://192.168.1.16:7070')
     activeSocket = true
 
     socket.onopen = function(e) {
