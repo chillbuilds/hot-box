@@ -1,9 +1,12 @@
 const ipCheck = require('./modules/ipCheck')
+const fs = require('fs')
 const http = require('http')
 const ws = require('ws')
 const port = 7070
 const {spawn} = require('child_process')
 let piip;
+var jobs = []
+var jobNames = []
 
 function tempCheck() {spawn('python', ['/home/pi/Desktop/hot-box/python/ds18b20.py'])}
 function relayOn() {spawn('python', ['/home/pi/Desktop/hot-box/python/relayOn.py'])}
@@ -33,17 +36,34 @@ function accept(req, res) {
 function onConnect(ws) {
   ws.on('message', function (message) {
     ws.send(message)
-    console.log(message)
     let obj = JSON.parse(message)
-    console.log(obj.request)
+    if(obj.request == "create"){create(obj)}
+    if(obj.request == "refresh"){
+      jobUpdate()
+      ws.send(JSON.stringify({request: 'update',jobs: jobs}))
+    }
   })
 }
 
+function create(obj) {
+  let newObj = {name: obj.name,temp: obj.temp,time: obj.time}
+  fs.writeFileSync(`./jobs/${obj.name}.json`, JSON.stringify(newObj))
+}
+
+function jobUpdate() {
+  jobs = []
+  jobNames = []
+  fs.readdirSync('./jobs').forEach(file => {jobNames.push(file)})
+  for(var i = 0; i < jobNames.length; i++){
+    let x = fs.readFileSync(`./jobs/${jobNames[i]}`, 'utf-8')
+    jobs.push(x)
+  }
+}
+
 if (!module.parent) {
-  http.createServer(accept).listen(port);
-  console.log(`\nWebSocket server running on port ${port}\n`)
+  http.createServer(accept).listen(port, piip)
   piip = ipCheck()
-  console.log(piip)
+  console.log(`\nWebSocket server running @ ${piip}:${port}\n`)
 } else {
   exports.accept = accept
   console.log('WebSocket server failed')
