@@ -1,0 +1,26 @@
+{
+  "name": "hot-box",
+  "version": "1.0.0",
+  "description": "The brains for the Frankenstein toaster oven",
+  "main": "e.js",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "http": "0.0.0",
+    "os": "^0.1.1",
+    "ws": "^7.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chillbuilds/hot-box.git"
+  },
+  "author": "Will Wojeck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chillbuilds/hot-box/issues"
+  },
+  "homepage": "https://github.com/chillbuilds/hot-box#readme"
+}
