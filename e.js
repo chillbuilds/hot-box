@@ -34,14 +34,8 @@ function onConnect(ws) {
   ws.on('message', function (message) {
     ws.send(message)
     console.log(message)
-    switch(message) {
-      case 'Browser connection established':
-        console.log('shit werks')
-        break
-      
-      default:
-        console.log('weird shit in the switch statement')
-    }
+    let obj = JSON.parse(message)
+    console.log(obj.request)
   })
 }
 
