@@ -14,6 +14,16 @@ input {
     margin: 6% 6%;
 }
 
+.icon {
+    cursor: pointer;
+    position: relative;
+    float: left;
+    right: 50px;
+    bottom: 8px;
+    margin: 6px;
+    width: 30px;
+}
+
 .status {
     position: relative;
     float: left;

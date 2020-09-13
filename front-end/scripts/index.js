@@ -41,3 +41,33 @@ function socketSetup() {
 }
 
 socketSetup()
+
+$('#createJob').on('click', function() {
+  var err = []
+  let name = $('#nameInput').val()
+  let temp = parseInt($('#tempInput').val())
+  let tempStr = $('#tempInput').val()
+  let time = $('#timeInput').val()
+  let timeParse = time.split(':')
+  let hr = parseInt(timeParse[0])
+  let min = parseInt(timeParse[1])
+  if(hr < 0 || hr > 99){err.push('Hour must be between 0 and 99')}
+  if(min < 0 || min > 61){err.push('Minutes must be between 0 and 60')}
+  if(name.length < 1){err.push('Job name required')}
+  if(name.length > 30){err.push('Job name exceeds allowed limit')}
+  if(tempStr == '')(err.push('Temp required'))
+  if(temp > 150 || temp < 85){err.push('Provided temp is outside accepted bounds')}
+  if(time.length < 1){err.push('Time required')}
+  if(timeParse.length != 2 && time.length >= 1){err.push('Provided time is formatted incorrectly')}
+  if(err.length > 0){
+    for(var i = 0; i < err.length; i++){
+      console.log(err[i])
+    }
+  }else{socket.send(JSON.stringify({name: name, temp: temp, time: time}))}
+})
+
+$('#erase').on('click', function() {
+  $('#nameInput').val('')
+  $('#tempInput').val('')
+  $('#timeInput').val('')
+})
