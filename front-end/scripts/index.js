@@ -21,8 +21,26 @@ function socketSetup() {
         for(var i = 0; i < data.jobs.length; i++){
           jobs.push(data.jobs[i])
         }
-        console.log(jobs)
-      }
+        if(jobs.length > 0){
+          $('#jobInjection').html('')
+          jobs.sort(jobs.name)
+          for(var i = 0; i < jobs.length; i++){
+            let jobObj = JSON.parse(jobs[i])
+            let html = `<div id="job${i+1}" class="jobChunk">
+            <div id="namePrev" class="prev">Job Name: ${jobObj.name}</div>
+            <div id="tempPrev" class="prev">Temp: ${jobObj.temp}</div>
+            <div id="timePrev" class="prev">Time: ${jobObj.time}</div>
+            <div id="jobIcons"><img style="position:relative;left:50px;" id="run++${jobObj.name}" class="icon" src="front-end/images/icons/check.png">
+            <img style="position:relative;left:50px;" id="erase++${jobObj.name}" class="icon" src="./front-end/images/icons/x.png">
+            </div>
+            </div>`
+            $('#jobInjection').append(html)
+          }
+          $('.icon').on('click', function() {
+            let objArr = $(this).attr('id').split('++')
+            socket.send(JSON.stringify({request: objArr[0], file: objArr[1]}))
+          })
+      }}
     }
     
     socket.onclose = function(event) {
@@ -49,7 +67,7 @@ function socketSetup() {
 }
 
 function interval() {
-  setInterval(function() {socket.send(JSON.stringify({request: 'refresh'}))}, 3000)
+  setInterval(function() {socket.send(JSON.stringify({request: 'refresh'}))}, 2000)
 }
 
 socketSetup()
@@ -76,11 +94,14 @@ $('#createJob').on('click', function() {
     for(var i = 0; i < err.length; i++){
       console.log(err[i])
     }
-  }else{socket.send(JSON.stringify({request: 'create',name: name, temp: temp, time: time}))}
+  }
+  if(err.length == 0){socket.send(JSON.stringify({request: 'create',name: name, temp: temp, time: time}))}
 })
 
-$('#erase').on('click', function() {
-  $('#nameInput').val('')
-  $('#tempInput').val('')
-  $('#timeInput').val('')
+$('.icon').on('click', function() {
+  if($(this).attr('id') == 'erase'){
+    $('#nameInput').val('')
+    $('#tempInput').val('')
+    $('#timeInput').val('')
+  }
 })
